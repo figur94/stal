@@ -475,11 +475,13 @@ class SalesPageListState extends State<SalesPage> {
   Widget _buildBody() {
     List<String> headerTitles = ['Nazwa', 'Waga', 'Długość', 'Cena', ' '];
     return Column(
-          HeaderDelegate(titles: headerTitles),
+      children: [
+        HeaderDelegate(titles: headerTitles),
 
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
+        Expanded(
+          child: ListView.builder(
+            itemCount: _filterItems().length,
+            itemBuilder: (BuildContext context, int index) {
               final filteredItem = _filterItems()[index];
               TextEditingController weightController =
                   _controllers[filteredItem.name] ?? TextEditingController();
@@ -591,11 +593,10 @@ class SalesPageListState extends State<SalesPage> {
                   ),
                 ),
               );
-
-                },
-            childCount: _filterItems().length,
+            },
           ),
         ),
+      ],
     );
   }
 }
